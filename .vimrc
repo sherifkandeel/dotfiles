@@ -15,6 +15,7 @@
 "git clone git://github.com/tpope/vim-fugitive.git
 "git clone https://github.com/vim-airline/vim-airline
 "git clone https://github.com/vim-airline/vim-airline-themes
+"git clone git://github.com/airblade/vim-gitgutter.git
 
 "vim ~/.vimrc 
 ":cd ~/sre/sre-web/
@@ -24,6 +25,7 @@ call pathogen#infect()
 "starters---------------------------------------------
 "
 set nocompatible
+set clipboard=unnamed
 
 "for faster vim
 set ttyfast
@@ -81,7 +83,7 @@ set formatoptions=qrn1
 set number
 
 "Settings relative numbering in line numbers
-set relativenumber
+" set relativenumber
 
 "
 "Editing----------------------------------------------
@@ -174,7 +176,28 @@ noremap fl :call Flake8() <CR>
 "Flake8 settings
 "autocmd BufWritePost *.py call Flake8()
 "
-
+                   
+"
+"git-gutter settings
+"
+"update time (in ms)
+set updatetime=250
+"dont let gitgutter map keys
+let g:gitgutter_map_keys = 0
+"always leave sign column
+let g:gitgutter_sign_column_always = 1
+"max signs (for perofrmance)
+let g:gitgutter_max_signs = 500
+highlight GitGutterAddLine ctermbg=green
+highlight GitGutterDeleteLine ctermbg=red
+"Mapping toggle commands
+noremap <leader>gg :GitGutterToggle<CR>
+noremap <leader>ggs :GitGutterSignsToggle<CR>
+noremap <leader>ghl :GitGutterLineHighlightsToggle<CR>
+"setting gitgutter not to run by default
+let g:gitgutter_enabled = 0
+"change sign for modified
+let g:gitgutter_sign_modified = '~'
 
 
 
