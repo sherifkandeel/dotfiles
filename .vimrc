@@ -119,8 +119,8 @@ noremap <silent> <leader>k :wincmd k<CR>
 noremap <silent> <leader>l :wincmd l<CR>
 
 "mapping the relativenumber
-nmap rn :set relativenumber <CR>
-nmap nrn :set norelativenumber <CR>
+nmap <leader> rn :set relativenumber <CR>
+nmap <leader> nrn :set norelativenumber <CR>
 
 " ; switches to command mode
 nnoremap ; :
