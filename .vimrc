@@ -25,7 +25,9 @@ call pathogen#infect()
 "starters---------------------------------------------
 "
 set nocompatible
-set clipboard=unnamed
+
+" shares the clipboard with system clipboard
+" set clipboard=unnamed
 
 "for faster vim
 set ttyfast
@@ -83,7 +85,10 @@ set formatoptions=qrn1
 set number
 
 "Settings relative numbering in line numbers
-" set relativenumber
+set relativenumber
+
+"settings a vertical column for 120 Characters
+set cc=120
 
 "
 "Editing----------------------------------------------
@@ -121,7 +126,7 @@ nmap nrn :set norelativenumber <CR>
 nnoremap ; :
 
 "
-" splits ------------------------------------------------------------------{{{2
+" splits ---------------------------------------------
 " 
 "splits horizontally and opens the last buffer inside the buttom window
 nnoremap <leader>sj :execute "rightbelow split " . bufname("#")<CR>
@@ -132,7 +137,7 @@ nnoremap <leader>sl :execute "rightbelow vsplit " . bufname("#")<CR>
 "splits vertically and opens the last buffer inside the left window
 nnoremap <leader>sh :execute "leftabove vsplit " . bufname("#")<CR>
 
-" move lines up or down ---------------------------------------------------{{{2
+" move lines up or down ------------------------------
 nnoremap <C-j> :m .+1<CR>
 nnoremap <C-k> :m .-2<CR>
 inoremap <C-j> <Esc>:m .+1<CR>gi
@@ -149,7 +154,7 @@ noremap fl :call Flake8() <CR>
 colorscheme SlateDark
 
 "
-"Plugin configurations-------------------------------
+"Plugin configurations--------------------------------
 "
 "NERDTree stuff---------------------------------------
 "hide files with extensions pyc from the nerdtree
@@ -157,11 +162,12 @@ map <leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 
 "open NERDTREE
-noremap nt :NERDTree <CR>
+" noremap nt :NERDTree <CR>
 
 
 "Airline configuration--------------------------------
-set guifont=Liberation\ Mono\ for\ powerline
+" set guifont=Liberation\ Mono\ for\ powerline:h12
+set guifont=Fira\ Mono\ Medium\ for\ Powerline:h12
 let g:airline_powerline_fonts = 1
 set laststatus=2
 
@@ -172,10 +178,6 @@ set laststatus=2
 " python powerline_setup()
 " python del powerline_setup
 
-noremap fl :call Flake8() <CR>
-"Flake8 settings
-"autocmd BufWritePost *.py call Flake8()
-"
                    
 "
 "git-gutter settings
