@@ -1,6 +1,6 @@
-"
-" pathogen and bundles--------------------------------
-"
+"--------------------------------------------
+"PATHOGEN AND BUNDLES-----------------------
+"--------------------------------------------
 "mkdir -p ~/.vim/autoload ~/.vim/bundle && \
 "curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
@@ -17,21 +17,19 @@
 "git clone https://github.com/vim-airline/vim-airline-themes
 "git clone git://github.com/airblade/vim-gitgutter.git
 
-"vim ~/.vimrc 
-":cd ~/sre/sre-web/
 call pathogen#infect()
 
-"
-"starters---------------------------------------------
-"
+"--------------------------------------------
+"STARTERS------------------------------------
+"--------------------------------------------
 set nocompatible
 
 " shares the clipboard with system clipboard
 " set clipboard=unnamed
 
 "for faster vim
-set ttyfast
-set lazyredraw
+" set ttyfast
+" set lazyredraw
 " set history=1000
 " set ttyscroll=2
 
@@ -53,9 +51,12 @@ set hidden
 "opening any new tab to the right
 set splitright
 
-"
-"Searching--------------------------------------------
-"
+"maintaining scale after closing a buffer (no window resize, all space of closed one goes to the left pane)
+set noea
+
+"--------------------------------------------
+"SEARCHING-----------------------------------
+"--------------------------------------------
 "Set incremental searching"
 set incsearch
 
@@ -66,9 +67,11 @@ set hlsearch
 set ignorecase
 set smartcase
 
-"
-"Ruler stuff------------------------------------------
-"
+
+
+"--------------------------------------------
+"RULER STUFF---------------------------------
+"--------------------------------------------
 "Display current cursor position in lower right corner.
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) 
@@ -78,30 +81,36 @@ set nowrap
 set textwidth=120
 set formatoptions=qrn1
 
-"
-"Numbers----------------------------------------------
-"
+
+
+"--------------------------------------------
+"NUMBERS-------------------------------------
+"--------------------------------------------
 "set line numbers
 set number
 
 "Settings relative numbering in line numbers
-set relativenumber
+" set relativenumber
 
 "settings a vertical column for 120 Characters
 set cc=120
 
-"
-"Editing----------------------------------------------
-"
+
+
+"--------------------------------------------
+"EDITING-------------------------------------
+"--------------------------------------------
 " Allow the cursor to go in to 'invalid' places
 set virtualedit=all
 
 "setting paste toggle to turn off autoindent when pasting
 set pastetoggle=<F12>
 
-"
-"Mappings---------------------------------------------
-"
+
+
+"--------------------------------------------
+"MAPPINGS------------------------------------
+"--------------------------------------------
 let mapleader = ','
 
 "exit insert mode with jk
@@ -112,22 +121,29 @@ noremap <silent> el <C-W>l
 noremap <silent> ek <C-W>k
 noremap <silent> eh <C-W>h
 noremap <silent> ej <C-W>j
+
 "Also map them to ,hjkl
 noremap <silent> <leader>h :wincmd h<CR>
 noremap <silent> <leader>j :wincmd j<CR>
 noremap <silent> <leader>k :wincmd k<CR>
 noremap <silent> <leader>l :wincmd l<CR>
 
+
 "mapping the relativenumber
 nmap <leader> rn :set relativenumber <CR>
 nmap <leader> nrn :set norelativenumber <CR>
 
+"map to disable highlight
+nnoremap <esc> :noh<return><esc>
+
 " ; switches to command mode
 nnoremap ; :
 
-"
-" splits ---------------------------------------------
-" 
+
+
+"--------------------------------------------
+"NAVIGATION----------------------------------
+"--------------------------------------------
 "splits horizontally and opens the last buffer inside the buttom window
 nnoremap <leader>sj :execute "rightbelow split " . bufname("#")<CR>
 "splits horizontally and opens the last buffer inside the upper window
@@ -137,7 +153,7 @@ nnoremap <leader>sl :execute "rightbelow vsplit " . bufname("#")<CR>
 "splits vertically and opens the last buffer inside the left window
 nnoremap <leader>sh :execute "leftabove vsplit " . bufname("#")<CR>
 
-" move lines up or down ------------------------------
+" move lines up or down
 nnoremap <C-j> :m .+1<CR>
 nnoremap <C-k> :m .-2<CR>
 inoremap <C-j> <Esc>:m .+1<CR>gi
@@ -148,24 +164,27 @@ vnoremap <C-k> :m '<-2<CR>gv
 "Run flake for the current file shortcut
 noremap fl :call Flake8() <CR>
 
-"
-"colorscheme settings---------------------------------
-"
+
+
+"--------------------------------------------
+"COLORSCHEME SETTINGS------------------------
+"--------------------------------------------
 colorscheme SlateDark
 
-"
-"Plugin configurations--------------------------------
-"
-"NERDTree stuff---------------------------------------
+
+
+"--------------------------------------------
+"PLUGIN CONFIGURATIONS-----------------------
+"--------------------------------------------
+
+"NERDTree stuff
+"--------------
 "hide files with extensions pyc from the nerdtree
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 
-"open NERDTREE
-" noremap nt :NERDTree <CR>
-
-
-"Airline configuration--------------------------------
+"Airline configuration
+"---------------------
 " set guifont=Liberation\ Mono\ for\ powerline:h12
 set guifont=Fira\ Mono\ Medium\ for\ Powerline:h12
 let g:airline_powerline_fonts = 1
@@ -179,9 +198,8 @@ set laststatus=2
 " python del powerline_setup
 
                    
-"
 "git-gutter settings
-"
+"-------------------
 "update time (in ms)
 set updatetime=250
 "dont let gitgutter map keys
@@ -203,9 +221,12 @@ let g:gitgutter_sign_modified = '~'
 
 
 
-"
-"functions--------------------------------------------
-"
+"--------------------------------------------
+"FUNCTIONS-----------------------------------
+"--------------------------------------------
+
+"Window swapping function
+"------------------------
 function! MarkWindowSwap()
     let g:markedWinNum = winnr()
 endfunction
@@ -227,3 +248,66 @@ endfunction
 
 nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nmap <silent> <leader>pw :call DoWindowSwap()<CR>
+
+"window resizing
+"---------------
+" Tmux-like window resizing
+function! IsEdgeWindowSelected(direction)
+    let l:curwindow = winnr()
+    exec "wincmd ".a:direction
+    let l:result = l:curwindow == winnr()
+
+    if (!l:result)
+        " Go back to the previous window
+        exec l:curwindow."wincmd w"
+    endif
+
+    return l:result
+endfunction
+
+function! GetAction(direction)
+    let l:keys = ['h', 'j', 'k', 'l']
+    let l:actions = ['vertical resize -', 'resize +', 'resize -', 'vertical resize +']
+    return get(l:actions, index(l:keys, a:direction))
+endfunction
+
+function! GetOpposite(direction)
+    let l:keys = ['h', 'j', 'k', 'l']
+    let l:opposites = ['l', 'k', 'j', 'h']
+    return get(l:opposites, index(l:keys, a:direction))
+endfunction
+
+function! TmuxResize(direction, amount)
+    " v >
+    if (a:direction == 'j' || a:direction == 'l')
+        if IsEdgeWindowSelected(a:direction)
+            let l:opposite = GetOpposite(a:direction)
+            let l:curwindow = winnr()
+            exec 'wincmd '.l:opposite
+            let l:action = GetAction(a:direction)
+            exec l:action.a:amount
+            exec l:curwindow.'wincmd w'
+            return
+        endif
+    " < ^
+    elseif (a:direction == 'h' || a:direction == 'k')
+        let l:opposite = GetOpposite(a:direction)
+        if IsEdgeWindowSelected(l:opposite)
+            let l:curwindow = winnr()
+            exec 'wincmd '.a:direction
+            let l:action = GetAction(a:direction)
+            exec l:action.a:amount
+            exec l:curwindow.'wincmd w'
+            return
+        endif
+    endif
+
+    let l:action = GetAction(a:direction)
+    exec l:action.a:amount
+endfunction
+
+" Map to Ctrl+hjkl to resize panes
+nnoremap <C-h> :call TmuxResize('h', 1)<CR>
+nnoremap <C-j> :call TmuxResize('j', 1)<CR>
+nnoremap <C-k> :call TmuxResize('k', 1)<CR>
+nnoremap <C-l> :call TmuxResize('l', 1)<CR>
