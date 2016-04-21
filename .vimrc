@@ -92,10 +92,6 @@ set number
 "Settings relative numbering in line numbers
 " set relativenumber
 
-"settings a vertical column for 120 Characters
-set cc=120
-
-
 
 "--------------------------------------------
 "EDITING-------------------------------------
@@ -219,6 +215,14 @@ let g:gitgutter_enabled = 0
 "change sign for modified
 let g:gitgutter_sign_modified = '~'
 
+
+"--------------------------------------------
+"COLORCOLUMN---------------------------------
+"--------------------------------------------
+"settings a vertical column for 120 Characters
+set cc=120
+highlight ColorColumn ctermbg=7
+highlight ColorColumn guibg=Grey
 
 
 "--------------------------------------------
