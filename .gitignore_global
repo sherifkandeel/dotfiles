@@ -79,3 +79,6 @@ Session.vim
 .netrwhist
 *~
 
+### cert files ###
+*.crt
+*.key
