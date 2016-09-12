@@ -45,14 +45,20 @@ syntax on
 "Write the old file out when switching between files.
 set autowrite
 
+"Auto reload files when changed.
+set autoread
+
 "Switch between buffers without saving
 set hidden
 
 "opening any new tab to the right
 set splitright
 
+"set word autocomplete
+set complete+=kspell
+
 "maintaining scale after closing a buffer (no window resize, all space of closed one goes to the left pane)
-set noea
+" set noea
 
 "--------------------------------------------
 "SEARCHING-----------------------------------
@@ -124,18 +130,28 @@ noremap <silent> <leader>j :wincmd j<CR>
 noremap <silent> <leader>k :wincmd k<CR>
 noremap <silent> <leader>l :wincmd l<CR>
 
-
-"mapping the relativenumber
-nmap <leader> rn :set relativenumber <CR>
-nmap <leader> nrn :set norelativenumber <CR>
+" toggle linenumbers
+noremap <silent> <leader>; :set invnumber<CR>
 
 "map to disable highlight
-nnoremap <esc> :noh<return><esc>
+nnoremap <silent> <leader><Space> :noh<return>
 
 " ; switches to command mode
 nnoremap ; :
 
+" Make Y behave like other capitals
+map Y y$
 
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
+" Use arrow keys to change buffers
+noremap <left> :bp<CR>
+noremap <right> :bn<CR>
+
+"Run flake for the current file shortcut
+noremap fl :call Flake8() <CR>
 
 "--------------------------------------------
 "NAVIGATION----------------------------------
@@ -157,41 +173,32 @@ inoremap <C-k> <Esc>:m .-2<CR>gi
 vnoremap <C-j> :m '>+1<CR>gv
 vnoremap <C-k> :m '<-2<CR>gv
 
-"Run flake for the current file shortcut
-noremap fl :call Flake8() <CR>
-
-
-
 "--------------------------------------------
 "COLORSCHEME SETTINGS------------------------
 "--------------------------------------------
-colorscheme SlateDark
-
+" colorscheme SlateDark
+colorscheme vorange
 
 
 "--------------------------------------------
 "PLUGIN CONFIGURATIONS-----------------------
 "--------------------------------------------
 
-"NERDTree stuff
-"--------------
+"NERDTree configuration
+"----------------------
 "hide files with extensions pyc from the nerdtree
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+" let NERDTreeShowHidden=1
+
+set guifont=Meslo\ LG\ M\ DZ\ for\ powerline:h12
 
 "Airline configuration
 "---------------------
 " set guifont=Liberation\ Mono\ for\ powerline:h12
-set guifont=Fira\ Mono\ Medium\ for\ Powerline:h12
+let g:airline_theme='zenburn'
 let g:airline_powerline_fonts = 1
 set laststatus=2
-
-" Powerline-status
-" run-shell "powerline-daemon -q"
-" set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
-" python from powerline.vim import setup as powerline_setup
-" python powerline_setup()
-" python del powerline_setup
 
                    
 "git-gutter settings
@@ -219,8 +226,6 @@ let g:gitgutter_sign_modified = '~'
 "--------------------------------------------
 "COLORCOLUMN---------------------------------
 "--------------------------------------------
-"settings a vertical column for 120 Characters
-set cc=120
 highlight ColorColumn ctermbg=7
 highlight ColorColumn guibg=Grey
 
@@ -311,7 +316,32 @@ function! TmuxResize(direction, amount)
 endfunction
 
 " Map to Ctrl+hjkl to resize panes
-nnoremap <C-h> :call TmuxResize('h', 1)<CR>
-nnoremap <C-j> :call TmuxResize('j', 1)<CR>
-nnoremap <C-k> :call TmuxResize('k', 1)<CR>
-nnoremap <C-l> :call TmuxResize('l', 1)<CR>
+nnoremap <S-h> :call TmuxResize('h', 1)<CR>
+nnoremap <S-j> :call TmuxResize('j', 1)<CR>
+nnoremap <S-k> :call TmuxResize('k', 1)<CR>
+nnoremap <S-l> :call TmuxResize('l', 1)<CR>
+
+" Toggle colorcolumn
+" ------------------
+function! g:ToggleColorColumn()
+  if &colorcolumn != ''
+    setlocal colorcolumn&
+  else
+    setlocal colorcolumn=+1
+  endif
+endfunction
+
+" Map ,cc to toggle color column
+nnoremap <silent> <leader>cc :call g:ToggleColorColumn()<CR>
+
+"--------------------------------------------
+"AUTO COMMANDS-------------------------------
+"--------------------------------------------
+" disable paste mode when leaving Insert Mode
+au InsertLeave * set nopaste
+
+" automatically reload vimrc when it's saved
+" au BufWritePost .vimrc so ~/.vimrc
+
+" automatically turn on spell check in *.md files
+autocmd BufRead,BufNewFile *.md setlocal spell
