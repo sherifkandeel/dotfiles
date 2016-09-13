@@ -109,6 +109,14 @@ set virtualedit=all
 set pastetoggle=<F12>
 
 
+"--------------------------------------------
+"CONCEALING----------------------------------
+"--------------------------------------------
+setlocal concealcursor=cnv "will only show true character in insert mode.
+setlocal conceallevel=2
+syntax match scalaArrow "⇒" conceal cchar=→     
+
+
 
 "--------------------------------------------
 "MAPPINGS------------------------------------
@@ -191,11 +199,12 @@ map <leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 " let NERDTreeShowHidden=1
 
-set guifont=Meslo\ LG\ M\ DZ\ for\ powerline:h12
+" set guifont=Meslo\ LG\ M\ DZ\ for\ powerline:h12
+" set guifont=FuraMonoForPowerline\ Nerd\ Font:h12
+set guifont=Fira\ Mono\ Medium\ for\ powerline:h12
 
 "Airline configuration
 "---------------------
-" set guifont=Liberation\ Mono\ for\ powerline:h12
 let g:airline_theme='zenburn'
 let g:airline_powerline_fonts = 1
 set laststatus=2
