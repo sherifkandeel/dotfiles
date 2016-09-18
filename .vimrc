@@ -181,6 +181,7 @@ inoremap <C-k> <Esc>:m .-2<CR>gi
 vnoremap <C-j> :m '>+1<CR>gv
 vnoremap <C-k> :m '<-2<CR>gv
 
+
 "--------------------------------------------
 "COLORSCHEME SETTINGS------------------------
 "--------------------------------------------
@@ -191,6 +192,15 @@ colorscheme vorange
 "--------------------------------------------
 "PLUGIN CONFIGURATIONS-----------------------
 "--------------------------------------------
+
+"TMUX/VIM navigator plugin
+"https://github.com/christoomey/vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <leader>h :TmuxNavigateLeft<cr>
+nnoremap <silent> <leader>j :TmuxNavigateDown<cr>
+nnoremap <silent> <leader>k :TmuxNavigateUp<cr>
+nnoremap <silent> <leader>l :TmuxNavigateRight<cr>
+
 
 "NERDTree configuration
 "----------------------
@@ -269,7 +279,7 @@ nmap <silent> <leader>pw :call DoWindowSwap()<CR>
 
 "window resizing
 "---------------
-" Tmux-like window resizing
+" Shift-like window resizing
 function! IsEdgeWindowSelected(direction)
     let l:curwindow = winnr()
     exec "wincmd ".a:direction
@@ -295,7 +305,7 @@ function! GetOpposite(direction)
     return get(l:opposites, index(l:keys, a:direction))
 endfunction
 
-function! TmuxResize(direction, amount)
+function! ShiftResize(direction, amount)
     " v >
     if (a:direction == 'j' || a:direction == 'l')
         if IsEdgeWindowSelected(a:direction)
@@ -325,10 +335,10 @@ function! TmuxResize(direction, amount)
 endfunction
 
 " Map to Ctrl+hjkl to resize panes
-nnoremap <S-h> :call TmuxResize('h', 1)<CR>
-nnoremap <S-j> :call TmuxResize('j', 1)<CR>
-nnoremap <S-k> :call TmuxResize('k', 1)<CR>
-nnoremap <S-l> :call TmuxResize('l', 1)<CR>
+nnoremap <S-h> :call ShiftResize('h', 1)<CR>
+nnoremap <S-j> :call ShiftResize('j', 1)<CR>
+nnoremap <S-k> :call ShiftResize('k', 1)<CR>
+nnoremap <S-l> :call ShiftResize('l', 1)<CR>
 
 " Toggle colorcolumn
 " ------------------
@@ -354,3 +364,5 @@ au InsertLeave * set nopaste
 
 " automatically turn on spell check in *.md files
 autocmd BufRead,BufNewFile *.md setlocal spell
+
+
