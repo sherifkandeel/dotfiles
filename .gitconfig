@@ -2,15 +2,21 @@
 	excludefile = /Users/smohamed/gitignore_global
 	excludesfile = /Users/smohamed/.gitignore_global
 [push]
-	default = matching
+	default = simple
 
 [alias]
 	; deleting fully merged branches apart from master and dev
 	cleanshit = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
 
-	; setting the upstream brnch to the local branch (solves the problem of "There's no tracking information for
-	; this branch")
-	su = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+	; cleans all local and remote tracking branches that are not in remote (will not delete not fully merged branches)
+	; syncbranches = "!git fetch --prune && git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d"
+
+	; setting the upstream branch to the local branch (solves the problem of "There's no tracking information for this branch")
+	setupstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+
+	;update origin refs (if you changed your default branch remotely)
+	sethead = !git remote set-head origin -a
+	
 	
 	;graph commands
 	gr = log --graph --full-history --all --color \
@@ -29,7 +35,7 @@
 	smudge = git-lfs smudge %f
 	required = true
 [user]
-	name = Sherif Maher Eid Mohamed
+	name = Sherif Mohamed
 	email = sherif.mohamed@zalando.de
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -37,3 +43,5 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[merge]
+	conflictstyle = diff3
