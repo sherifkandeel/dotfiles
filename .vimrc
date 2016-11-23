@@ -24,8 +24,10 @@ call pathogen#infect()
 "--------------------------------------------
 set nocompatible
 
-" shares the clipboard with system clipboard
-" set clipboard=unnamed
+" shares the clipboard with system clipboard if  running in terminal
+if !has('gui_running')
+    set clipboard=unnamed
+endif
 
 "for faster vim
 " set ttyfast
@@ -44,6 +46,11 @@ syntax on
 
 "Write the old file out when switching between files.
 set autowrite
+
+"set tab sizes for different file types: 
+autocmd Filetype html setlocal ts=2 sts=2 sw=2 expandtab
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2  expandtab
+autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 expandtab
 
 "Auto reload files when changed.
 set autoread
@@ -148,7 +155,7 @@ nnoremap <silent> <leader><Space> :noh<return>
 nnoremap ; :
 
 " Make Y behave like other capitals
-map Y y$
+nnoremap Y y$
 
 " Reselect visual block after indent/outdent
 vnoremap < <gv
@@ -187,6 +194,10 @@ vnoremap <C-k> :m '<-2<CR>gv
 "--------------------------------------------
 " colorscheme SlateDark
 colorscheme vorange
+
+" colorscheme gruvbox
+" set bg=dark
+" let g:gruvbox_contrast_dark = 'hard'
 
 
 "--------------------------------------------
@@ -252,6 +263,30 @@ highlight ColorColumn guibg=Grey
 "--------------------------------------------
 "FUNCTIONS-----------------------------------
 "--------------------------------------------
+
+"Paste from tmux automatically turns on paste mode
+"-------------------------------------------------
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 "Window swapping function
 "------------------------
