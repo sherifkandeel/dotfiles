@@ -195,7 +195,7 @@ vnoremap <C-k> :m '<-2<CR>gv
 " colorscheme SlateDark
 colorscheme vorange
 
-" colorscheme gruvbox
+" colorscheme Gruvbox
 " set bg=dark
 " let g:gruvbox_contrast_dark = 'hard'
 
@@ -264,7 +264,8 @@ highlight ColorColumn guibg=Grey
 "FUNCTIONS-----------------------------------
 "--------------------------------------------
 
-"Paste from tmux automatically turns on paste mode
+"Paste from shell/tmux automatically turns on paste mode
+" (For some reason this doesn't work for tmux, but it still works well with shell)
 "-------------------------------------------------
 function! WrapForTmux(s)
   if !exists('$TMUX')
@@ -287,6 +288,7 @@ function! XTermPasteBegin()
 endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
 
 "Window swapping function
 "------------------------
