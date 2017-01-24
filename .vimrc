@@ -47,6 +47,11 @@ syntax on
 "Write the old file out when switching between files.
 set autowrite
 
+"Set tab key and indent command to be 4 spaces (no tab is inserted)
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
 "set tab sizes for different file types: 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2  expandtab
@@ -120,7 +125,7 @@ set pastetoggle=<F12>
 "CONCEALING----------------------------------
 "--------------------------------------------
 setlocal concealcursor=cnv "will only show true character in insert mode.
-setlocal conceallevel=2
+setlocal conceallevel=0 "I disabled it by default
 syntax match scalaArrow "⇒" conceal cchar=→     
 
 
@@ -153,6 +158,9 @@ nnoremap <silent> <leader><Space> :noh<return>
 
 " ; switches to command mode
 nnoremap ; :
+
+" ,p pastes in vim from clipboard
+nmap <leader>p :set paste<CR>"*P:set nopaste<return>
 
 " Make Y behave like other capitals
 nnoremap Y y$
@@ -195,7 +203,7 @@ vnoremap <C-k> :m '<-2<CR>gv
 " colorscheme SlateDark
 colorscheme vorange
 
-" colorscheme Gruvbox
+" colorscheme gruvbox
 " set bg=dark
 " let g:gruvbox_contrast_dark = 'hard'
 
@@ -312,7 +320,7 @@ function! DoWindowSwap()
 endfunction
 
 nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
-nmap <silent> <leader>pw :call DoWindowSwap()<CR>
+nmap <silent> <leader>sw :call DoWindowSwap()<CR>
 
 "window resizing
 "---------------
@@ -399,7 +407,22 @@ au InsertLeave * set nopaste
 " automatically reload vimrc when it's saved
 " au BufWritePost .vimrc so ~/.vimrc
 
+" Automatically create views for files to save cursor positions and foldings
+au BufWinLeave ?* mkview
+au BufWinEnter ?* silent loadview
+
 " automatically turn on spell check in *.md files
 autocmd BufRead,BufNewFile *.md setlocal spell
 
 
+"--------------------------------------------
+"TAB FUNCTIONS-------------------------------
+"--------------------------------------------
+"Merges tab into the previous tab in a vertical split
+function! MergeTab()   
+    let this_tab = bufname('%') | exe 'normal! gt' | exe 'vsplit ' . this_tab | exe "normal! gT"| q | unlet this_tab
+endfunction
+
+nnoremap <leader>mm :call MergeTab()<CR>
+nnoremap <leader>w :wincmd T<CR>
+nnoremap <leader>t :tabn<CR>
