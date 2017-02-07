@@ -38,6 +38,12 @@ endif
 "set colorscheme
 "colorscheme slate
 
+" setting undo
+" tell vim to use an undo file
+set undofile
+" set a directory to store the undo history
+set undodir="~/.vim/.vimundo/"
+
 "Enable filetypes
 filetype on
 filetype plugin on
