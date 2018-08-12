@@ -16,7 +16,8 @@
 "git clone https://github.com/vim-airline/vim-airline
 "git clone https://github.com/vim-airline/vim-airline-themes
 "git clone git://github.com/airblade/vim-gitgutter.git
-
+let g:pathogen_disabled = []
+" call add(g:pathogen_disabled, 'ensime-vim')
 call pathogen#infect()
 
 "--------------------------------------------
@@ -78,6 +79,7 @@ set complete+=kspell
 "maintaining scale after closing a buffer (no window resize, all space of closed one goes to the left pane)
 " set noea
 
+
 "--------------------------------------------
 "SEARCHING-----------------------------------
 "--------------------------------------------
@@ -91,6 +93,16 @@ set hlsearch
 set ignorecase
 set smartcase
 
+
+"--------------------------------------------
+"FODLING-----------------------------------
+"--------------------------------------------
+set foldmethod=indent   
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+nnoremap <space> za
+vnoremap <space> zf
 
 
 "--------------------------------------------
@@ -141,6 +153,10 @@ syntax match scalaArrow "⇒" conceal cchar=→
 "--------------------------------------------
 let mapleader = ','
 
+"map paste when in visual mode to the last yanked text not the last replaced.
+vnoremap p "0p
+vnoremap P "0P
+
 "exit insert mode with jk
 inoremap jk <esc>
 
@@ -155,6 +171,9 @@ noremap <silent> <leader>h :wincmd h<CR>
 noremap <silent> <leader>j :wincmd j<CR>
 noremap <silent> <leader>k :wincmd k<CR>
 noremap <silent> <leader>l :wincmd l<CR>
+
+"close buffer without closing the tab with <leader> q
+map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " toggle linenumbers
 noremap <silent> <leader>; :set invnumber<CR>
@@ -414,8 +433,8 @@ au InsertLeave * set nopaste
 " au BufWritePost .vimrc so ~/.vimrc
 
 " Automatically create views for files to save cursor positions and foldings
-au BufWinLeave ?* mkview
-au BufWinEnter ?* silent loadview
+" au BufWinLeave ?* mkview
+" au BufWinEnter ?* silent loadview
 
 " automatically turn on spell check in *.md files
 autocmd BufRead,BufNewFile *.md setlocal spell
