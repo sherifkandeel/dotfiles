@@ -1,28 +1,22 @@
-"--------------------------------------------
-"PATHOGEN AND BUNDLES-----------------------
-"--------------------------------------------
-"mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-"curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'nvie/vim-flake8'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'airblade/vim-gitgutter', { 'on':  'GitGutterToggle' }
+Plug 'christoomey/vim-tmux-navigator'
+call plug#end()
 
-"Plugins, run :Helptags to generate help
-"cd ~/.vim/bundle
-"git clone https://github.com/scrooloose/nerdtree.git
-"git clone git://github.com/tpope/vim-commentary.git
-"git clone git://github.com/tpope/vim-surround.git
-"git clone git://github.com/tpope/vim-repeat.git
-"git clone https://github.com/nvie/vim-flake8.git
-"git clone git://github.com/tpope/vim-fugitive.git
-"git clone https://github.com/vim-airline/vim-airline
-"git clone https://github.com/vim-airline/vim-airline-themes
-"git clone git://github.com/airblade/vim-gitgutter.git
-let g:pathogen_disabled = []
-" call add(g:pathogen_disabled, 'ensime-vim')
-call pathogen#infect()
-
-"--------------------------------------------
-"STARTERS------------------------------------
-"--------------------------------------------
 set nocompatible
 
 " shares the clipboard with system clipboard if  running in terminal
@@ -30,63 +24,61 @@ if !has('gui_running')
     set clipboard=unnamed
 endif
 
-"for faster vim
-" set ttyfast
-" set lazyredraw
-" set history=1000
-" set ttyscroll=2
+" For faster vim
+set ttyfast
+set lazyredraw
+set history=1000
+set ttyscroll=2
 
-"set colorscheme
+" Set colorscheme
 "colorscheme slate
 
-" setting undo
-" tell vim to use an undo file
+" Setting undo
+"
+" Tell vim to use an undo file
 set undofile
-" set a directory to store the undo history
+
+" Set a directory to store the undo history
 set undodir="~/.vim/.vimundo/"
 
-"Enable filetypes
+" Enable filetypes
 filetype on
 filetype plugin on
 filetype indent on
 syntax on
 
-"Write the old file out when switching between files.
+" Write the old file out when switching between files.
 set autowrite
 
-"Set tab key and indent command to be 4 spaces (no tab is inserted)
+" Set tab key and indent command to be 4 spaces (no tab is inserted)
 set tabstop=4
 set shiftwidth=4
 set expandtab
 
-"set tab sizes for different file types: 
+" set tab sizes for different file types: 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2  expandtab
 autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 expandtab
 
-"Auto reload files when changed.
+" Auto reload files when changed.
 set autoread
 
-"Switch between buffers without saving
+" Switch between buffers without saving
 set hidden
 
-"opening any new tab to the right
+" Opening any new tab to the right
 set splitright
 
-"set word autocomplete
+" Set word autocomplete
 set complete+=kspell
 
-"maintaining scale after closing a buffer (no window resize, all space of closed one goes to the left pane)
+" Maintaining scale after closing a buffer (no window resize, all space of closed one goes to the left pane)
 " set noea
 
-
-"--------------------------------------------
-"SEARCHING-----------------------------------
-"--------------------------------------------
-"Set incremental searching"
+" Set incremental searching"
 set incsearch
 
-"Highlight searching
+" Highlight searching
 set hlsearch
 
 " case insensitive search
@@ -94,9 +86,7 @@ set ignorecase
 set smartcase
 
 
-"--------------------------------------------
-"FODLING-----------------------------------
-"--------------------------------------------
+" Folding
 set foldmethod=indent   
 set foldnestmax=10
 set nofoldenable
@@ -105,74 +95,60 @@ nnoremap <space> za
 vnoremap <space> zf
 
 
-"--------------------------------------------
-"RULER STUFF---------------------------------
-"--------------------------------------------
-"Display current cursor position in lower right corner.
+" Display current cursor position in lower right corner.
 set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) 
 
-"Better line wrapping 
+" Better line wrapping 
 set nowrap
 set textwidth=120
 set formatoptions=qrn1
 
 
 
-"--------------------------------------------
-"NUMBERS-------------------------------------
-"--------------------------------------------
-"set line numbers
+" Set line numbers
 set number
 
-"Settings relative numbering in line numbers
+" Set relative numbering in line numbers
 " set relativenumber
 
 
-"--------------------------------------------
-"EDITING-------------------------------------
-"--------------------------------------------
 " Allow the cursor to go in to 'invalid' places
 set virtualedit=all
 
-"setting paste toggle to turn off autoindent when pasting
+" Setting paste toggle to turn off autoindent when pasting
 set pastetoggle=<F12>
 
 
-"--------------------------------------------
-"CONCEALING----------------------------------
-"--------------------------------------------
 setlocal concealcursor=cnv "will only show true character in insert mode.
 setlocal conceallevel=0 "I disabled it by default
 syntax match scalaArrow "⇒" conceal cchar=→     
 
 
 
-"--------------------------------------------
-"MAPPINGS------------------------------------
-"--------------------------------------------
+" Mapping
 let mapleader = ','
 
-"map paste when in visual mode to the last yanked text not the last replaced.
+" Map paste when in visual mode to the last yanked text not the last replaced.
 vnoremap p "0p
 vnoremap P "0P
 
-"exit insert mode with jk
+" Exit insert mode with jk
 inoremap jk <esc>
 
-"map the window movements: 
+" Map the window movements: 
 noremap <silent> el <C-W>l
 noremap <silent> ek <C-W>k
 noremap <silent> eh <C-W>h
 noremap <silent> ej <C-W>j
 
-"Also map them to ,hjkl
+" Also map them to ,hjkl
 noremap <silent> <leader>h :wincmd h<CR>
 noremap <silent> <leader>j :wincmd j<CR>
 noremap <silent> <leader>k :wincmd k<CR>
 noremap <silent> <leader>l :wincmd l<CR>
 
-"close buffer without closing the tab with <leader> q
+" Close buffer without closing the tab with <leader> q
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " toggle linenumbers
@@ -201,19 +177,16 @@ noremap <right> :bn<CR>
 "Run flake for the current file shortcut
 noremap fl :call Flake8() <CR>
 
-"--------------------------------------------
-"NAVIGATION----------------------------------
-"--------------------------------------------
-"splits horizontally and opens the last buffer inside the buttom window
+" splits horizontally and opens the last buffer inside the buttom window
 nnoremap <leader>sj :execute "rightbelow split " . bufname("#")<CR>
-"splits horizontally and opens the last buffer inside the upper window
+" splits horizontally and opens the last buffer inside the upper window
 nnoremap <leader>sk :execute "leftabove split " . bufname("#")<CR>
-"splits vertically and opens the last buffer inside the right window
+" splits vertically and opens the last buffer inside the right window
 nnoremap <leader>sl :execute "rightbelow vsplit " . bufname("#")<CR>
-"splits vertically and opens the last buffer inside the left window
+" splits vertically and opens the last buffer inside the left window
 nnoremap <leader>sh :execute "leftabove vsplit " . bufname("#")<CR>
 
-" move lines up or down
+" Move lines up or down
 nnoremap <C-j> :m .+1<CR>
 nnoremap <C-k> :m .-2<CR>
 inoremap <C-j> <Esc>:m .+1<CR>gi
@@ -222,23 +195,10 @@ vnoremap <C-j> :m '>+1<CR>gv
 vnoremap <C-k> :m '<-2<CR>gv
 
 
-"--------------------------------------------
-"COLORSCHEME SETTINGS------------------------
-"--------------------------------------------
-" colorscheme SlateDark
-colorscheme vorange
-
-" colorscheme gruvbox
-" set bg=dark
-" let g:gruvbox_contrast_dark = 'hard'
+" colorscheme vorange
 
 
-"--------------------------------------------
-"PLUGIN CONFIGURATIONS-----------------------
-"--------------------------------------------
-
-"TMUX/VIM navigator plugin
-"https://github.com/christoomey/vim-tmux-navigator
+" Tmux/vim navigator plugin
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <leader>h :TmuxNavigateLeft<cr>
 nnoremap <silent> <leader>j :TmuxNavigateDown<cr>
@@ -246,32 +206,19 @@ nnoremap <silent> <leader>k :TmuxNavigateUp<cr>
 nnoremap <silent> <leader>l :TmuxNavigateRight<cr>
 
 
-"NERDTree configuration
-"----------------------
-"hide files with extensions pyc from the nerdtree
+" NERDTree configuration
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 " let NERDTreeShowHidden=1
 
-" set guifont=Meslo\ LG\ M\ DZ\ for\ powerline:h12
-" set guifont=FuraMonoForPowerline\ Nerd\ Font:h12
-set guifont=Fira\ Mono\ Medium\ for\ powerline:h12
-
-"Airline configuration
-"---------------------
-let g:airline_theme='zenburn'
-let g:airline_powerline_fonts = 1
-set laststatus=2
-
                    
-"git-gutter settings
-"-------------------
-"update time (in ms)
+" git-gutter settings
+" update time (in ms)
 set updatetime=250
 "dont let gitgutter map keys
 let g:gitgutter_map_keys = 0
 "always leave sign column
-let g:gitgutter_sign_column_always = 1
+set signcolumn=yes
 "max signs (for perofrmance)
 let g:gitgutter_max_signs = 500
 highlight GitGutterAddLine ctermbg=green
@@ -286,20 +233,11 @@ let g:gitgutter_enabled = 0
 let g:gitgutter_sign_modified = '~'
 
 
-"--------------------------------------------
-"COLORCOLUMN---------------------------------
-"--------------------------------------------
 highlight ColorColumn ctermbg=7
 highlight ColorColumn guibg=Grey
 
 
-"--------------------------------------------
-"FUNCTIONS-----------------------------------
-"--------------------------------------------
-
-"Paste from shell/tmux automatically turns on paste mode
-" (For some reason this doesn't work for tmux, but it still works well with shell)
-"-------------------------------------------------
+" Paste from shell/tmux automatically turns on paste mode
 function! WrapForTmux(s)
   if !exists('$TMUX')
     return a:s
@@ -323,8 +261,7 @@ endfunction
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
-"Window swapping function
-"------------------------
+" Window swapping function
 function! MarkWindowSwap()
     let g:markedWinNum = winnr()
 endfunction
@@ -347,8 +284,8 @@ endfunction
 nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nmap <silent> <leader>sw :call DoWindowSwap()<CR>
 
-"window resizing
-"---------------
+" Window resizing
+"
 " Shift-like window resizing
 function! IsEdgeWindowSelected(direction)
     let l:curwindow = winnr()
@@ -411,7 +348,6 @@ nnoremap <S-k> :call ShiftResize('k', 1)<CR>
 nnoremap <S-l> :call ShiftResize('l', 1)<CR>
 
 " Toggle colorcolumn
-" ------------------
 function! g:ToggleColorColumn()
   if &colorcolumn != ''
     setlocal colorcolumn&
@@ -423,27 +359,21 @@ endfunction
 " Map ,cc to toggle color column
 nnoremap <silent> <leader>cc :call g:ToggleColorColumn()<CR>
 
-"--------------------------------------------
-"AUTO COMMANDS-------------------------------
-"--------------------------------------------
-" disable paste mode when leaving Insert Mode
+" Disable paste mode when leaving Insert Mode
 au InsertLeave * set nopaste
 
-" automatically reload vimrc when it's saved
-" au BufWritePost .vimrc so ~/.vimrc
+" Automatically reload vimrc when it's saved
+au BufWritePost .vimrc so ~/.vimrc
 
 " Automatically create views for files to save cursor positions and foldings
 " au BufWinLeave ?* mkview
 " au BufWinEnter ?* silent loadview
 
-" automatically turn on spell check in *.md files
+" Automatically turn on spell check in *.md files
 autocmd BufRead,BufNewFile *.md setlocal spell
 
 
-"--------------------------------------------
-"TAB FUNCTIONS-------------------------------
-"--------------------------------------------
-"Merges tab into the previous tab in a vertical split
+" Merges tab into the previous tab in a vertical split
 function! MergeTab()   
     let this_tab = bufname('%') | exe 'normal! gt' | exe 'vsplit ' . this_tab | exe "normal! gT"| q | unlet this_tab
 endfunction
