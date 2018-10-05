@@ -47,6 +47,9 @@ filetype plugin on
 filetype indent on
 syntax on
 
+" Sensible backspace
+set backspace=indent,eol,start
+
 " Write the old file out when switching between files.
 set autowrite
 

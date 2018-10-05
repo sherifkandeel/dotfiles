@@ -1,6 +1,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/smohamed/.oh-my-zsh
 
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 ZSH_THEME="arrow"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -8,7 +10,7 @@ ZSH_THEME="arrow"
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git brew vim pip)
+plugins=(zsh-autosuggestions git brew vim pip)
 
 # User configuration
 
