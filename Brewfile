@@ -2,6 +2,7 @@ tap 'caskroom/cask'
 
 # Core Homebrew
 cask 'java'
+cask 'java8'
 brew 'scala'
 brew 'sbt'
 brew 'gradle'
