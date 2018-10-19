@@ -16,3 +16,5 @@ My personalized dotfiles along with themes, new installation for mac.
 ```
 curl -H "Authorization: token <token>" https://api.github.bus.zalan.do/orgs/<org>/repos\?per_page\=200 | grep clone_url | awk -F '"' '{print $4}' | xargs -n 1 -P 4 git clone
 ```
+### References
+https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
