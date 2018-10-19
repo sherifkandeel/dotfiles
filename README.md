@@ -1,5 +1,5 @@
-# my dotfiles
-my personalized dotfiles along with themes, new installation for mac.
+# My dotfiles
+My personalized dotfiles along with themes, new installation for mac.
 
 ## For a new Machine Run
 
@@ -11,9 +11,6 @@ my personalized dotfiles along with themes, new installation for mac.
 
 - You will need to manually install virtualbox
 - You will need to generate ssh-key
-- You might need to use [powerline](https://github.com/powerline/powerline) with the
-  [powerline](https://github.com/powerline/fonts) fonts
-- You will need to set caps lock to change language
 
 ### Clone all repos of organization
 ```
