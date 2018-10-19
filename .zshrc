@@ -1,9 +1,10 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/smohamed/.oh-my-zsh
 
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# copy theme if it doesn't exist 
+cp -n sherif.zsh-theme /Users/smohamed/.oh-my-zsh/themes/sherif.zsh-theme
 
-ZSH_THEME="arrow"
+ZSH_THEME=sherif
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -26,7 +27,7 @@ else
 fi
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Adding proper locale problem
 export LC_ALL=en_US.UTF-8
@@ -38,6 +39,11 @@ alias lockscreen='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/
 # for docker reasons
 eval "$(docker-machine env default)"
 
+# for powerline reasons
+# . /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+
+# For tmux powerline
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
 # Activating tmux
 if [ "$TMUX" = "" ]; then tmux; fi
