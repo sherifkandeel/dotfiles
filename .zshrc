@@ -2,7 +2,7 @@
 export ZSH=/Users/smohamed/.oh-my-zsh
 
 # copy theme if it doesn't exist 
-cp -n sherif.zsh-theme /Users/smohamed/.oh-my-zsh/themes/sherif.zsh-theme
+cp -n ~/sherif.zsh-theme ~/.oh-my-zsh/themes/sherif.zsh-theme
 
 ZSH_THEME=sherif
 
