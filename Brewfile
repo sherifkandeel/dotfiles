@@ -32,7 +32,7 @@ cask 'intellij-idea'
 cask 'skype'
 cask 'spectacle'
 cask 'docker'
-cask 'macvim'
+cask 'franz'
 
 # Mac app store
 mas 'The Unarchiver', id: 425424353
