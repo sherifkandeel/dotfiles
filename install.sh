@@ -11,8 +11,6 @@ defaults write com.apple.dashboard mcx-disabled -bool true
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
 brew bundle install 
 
 cp .gitconfig ~/.gitconfig
@@ -21,3 +19,22 @@ cp .ideavimrc ~/.ideavimrc
 cp .tmux.conf ~/.tmux.conf
 cp .vimrc ~/.vimrc
 cp .zshrc ~/.zshrc
+
+# oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+## you might need to run these commands separately as oh-my-zsh installation usually exits the script 
+
+# autosuggestions plugin for zsh
+cd ~/.oh-my-zsh/custom/plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# fonts for powerline
+cd ~/
+git clone https://github.com/powerline/fonts.git --depth=1
+cd fonts
+./install.sh
+
+# my custom powerline
+cd ~/
+git clone --branch personal https://github.com/sherifkandeel/tmux-powerline
