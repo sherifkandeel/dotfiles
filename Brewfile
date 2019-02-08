@@ -31,7 +31,6 @@ cask 'postman'
 cask 'intellij-idea'
 cask 'skype'
 cask 'spectacle'
-cask 'docker'
 cask 'franz'
 
 # Mac app store
