@@ -1,37 +1,54 @@
-tap 'caskroom/cask'
-
-# Core Homebrew
-cask 'java'
-cask 'java8'
-brew 'scala'
-brew 'sbt'
-brew 'gradle'
-brew 'git'
-brew 'postgres'
-brew 'postgis'
-brew 'mysql', restart_service: true
-brew 'maven'
-brew 'vim'
-brew 'wget'
-brew 'python'
-brew 'python3'
-brew 'zsh'
-brew 'zsh-compleletions'
-brew 'zsh-autosuggestions'
-brew 'reattach-to-user-namespace'
-brew 'tmux'
-
-# Cask Apps
-cask 'iterm2'
-cask 'google-chrome'
-cask 'filezilla'
-cask 'spotify'
-cask 'sublime-text'
-cask 'postman'
-cask 'intellij-idea'
-cask 'skype'
-cask 'spectacle'
-cask 'franz'
-
-# Mac app store
-mas 'The Unarchiver', id: 425424353
+tap "caskroom/cask"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+tap "homebrew/services"
+brew "python"
+brew "awscli"
+brew "git"
+brew "gradle"
+brew "iperf"
+brew "jq"
+brew "kubernetes-cli"
+brew "kubernetes-helm"
+brew "mas"
+brew "maven"
+brew "mysql", restart_service: true
+brew "oath-toolkit"
+brew "openvpn"
+brew "pandoc"
+brew "pandoc-citeproc"
+brew "postgresql"
+brew "postgis"
+brew "ruby-build"
+brew "rbenv"
+brew "reattach-to-user-namespace"
+brew "sbt"
+brew "scala"
+brew "sl"
+brew "terraform", link: false
+brew "tfenv"
+brew "tmux"
+brew "tree"
+brew "vim"
+brew "watch"
+brew "wget"
+brew "zsh"
+brew "zsh-autosuggestions"
+cask "docker"
+cask "franz"
+cask "intellij-idea"
+cask "iterm2"
+cask "java"
+cask "mtmr"
+cask "postman"
+cask "spectacle"
+cask "spotify"
+cask "sublime-text"
+cask "virtualbox"
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Xcode", id: 497799835
