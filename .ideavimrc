@@ -10,6 +10,8 @@ set nowrap
 set textwidth=120
 set formatoptions=qrn1
 
+set clipboard=unnamed
+
 "--------------------------------------------
 "SEARCHING-----------------------------------
 "--------------------------------------------
@@ -30,7 +32,7 @@ set smartcase
 set number
 
 "Settings relative numbering in line numbers
-set relativenumber
+" set relativenumber
 
 "--------------------------------------------
 "EDITING-------------------------------------
@@ -65,6 +67,10 @@ let mapleader = ','
 "exit insert mode with jk
 inoremap jk <esc>
 
+
+" Map paste when in visual mode to the last yanked text not the last replaced.
+vnoremap p "0p
+vnoremap P "0P
 
 "map the window movements to ,hjkl
 noremap <leader>h <C-W>h
