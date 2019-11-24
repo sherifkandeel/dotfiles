@@ -7,10 +7,10 @@ brew "python"
 brew "awscli"
 brew "git"
 brew "gradle"
+brew "helm"
 brew "iperf"
 brew "jq"
 brew "kubernetes-cli"
-brew "kubernetes-helm"
 brew "mas"
 brew "maven"
 brew "mysql", restart_service: true
@@ -28,6 +28,7 @@ brew "scala"
 brew "sl"
 brew "terraform", link: false
 brew "tfenv"
+brew "tig"
 brew "tmux"
 brew "tree"
 brew "vim"
@@ -35,20 +36,17 @@ brew "watch"
 brew "wget"
 brew "zsh"
 brew "zsh-autosuggestions"
+cask "alacritty"
 cask "docker"
 cask "franz"
 cask "intellij-idea"
 cask "iterm2"
 cask "java"
+cask "kitty"
 cask "mtmr"
 cask "postman"
 cask "spectacle"
 cask "spotify"
 cask "sublime-text"
 cask "virtualbox"
-mas "GarageBand", id: 682658836
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "Xcode", id: 497799835
+cask "vlc"
