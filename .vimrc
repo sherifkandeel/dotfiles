@@ -19,6 +19,8 @@ call plug#end()
 
 set nocompatible
 
+"enable mouse
+" set mouse=n
 " shares the clipboard with system clipboard if  running in terminal
 if !has('gui_running')
     set clipboard=unnamed
@@ -123,9 +125,9 @@ set virtualedit=all
 set pastetoggle=<F12>
 
 
-setlocal concealcursor=cnv "will only show true character in insert mode.
-setlocal conceallevel=0 "I disabled it by default
-syntax match scalaArrow "⇒" conceal cchar=→     
+" setlocal concealcursor=cnv "will only show true character in insert mode.
+" setlocal conceallevel=0 "I disabled it by default
+" syntax match scalaArrow "⇒" conceal cchar=→     
 
 
 
@@ -218,20 +220,26 @@ let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 " git-gutter settings
 " update time (in ms)
 set updatetime=250
+
 "dont let gitgutter map keys
 let g:gitgutter_map_keys = 0
+
 "always leave sign column
 set signcolumn=yes
+
 "max signs (for perofrmance)
 let g:gitgutter_max_signs = 500
 highlight GitGutterAddLine ctermbg=green
 highlight GitGutterDeleteLine ctermbg=red
+
 "Mapping toggle commands
 noremap <leader>gg :GitGutterToggle<CR>
 noremap <leader>ggs :GitGutterSignsToggle<CR>
 noremap <leader>ghl :GitGutterLineHighlightsToggle<CR>
+
 "setting gitgutter not to run by default
 let g:gitgutter_enabled = 0
+
 "change sign for modified
 let g:gitgutter_sign_modified = '~'
 
