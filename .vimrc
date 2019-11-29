@@ -18,6 +18,8 @@ Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 set nocompatible
+"fzf in vim
+set rtp+=/usr/local/opt/fzf
 
 "enable mouse
 " set mouse=n

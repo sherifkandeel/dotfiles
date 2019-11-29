@@ -51,7 +51,7 @@
     "width": 90,
     "source": {
       "inline":
-        "set temp to do shell script \"./Users/s.mohamed/osx-cpu-temp/osx-cpu-temp\"\rreturn temp & \"\""
+        "set temp to do shell script \"osx-cpu-temp\"\rreturn temp & \"\""
     },
     
     "refreshInterval": 5,
