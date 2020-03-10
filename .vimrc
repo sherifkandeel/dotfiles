@@ -248,6 +248,8 @@ let g:gitgutter_sign_modified = '~'
 
 highlight ColorColumn ctermbg=7
 highlight ColorColumn guibg=Grey
+highlight Visual term=reverse cterm=None ctermbg=Yellow ctermfg=Black guibg=Grey
+highlight Search term=reverse cterm=None ctermbg=Yellow ctermfg=Black guibg=Grey
 
 
 " Paste from shell/tmux automatically turns on paste mode
